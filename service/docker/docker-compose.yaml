@@ -1,0 +1,32 @@
+version: "0.1"
+
+services:
+  db:
+    container_name: db-resources
+    hostname: db
+    restart: unless-stopped
+    image: postgres:14
+    expose:
+      - "5432"
+    env_file:
+      - "../.env.docker-compose"
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql
+
+volumes:
+  db_data: {}
+# version: "0.1"
+
+# services:
+#   app:
+#     container_name: app
+#     build:
+#       dockerfile: docker/Dockerfile
+#       context: ..
+#       target: main
+#     environment:
+#       - "BUILD_TYPE=production"
+#     ports:
+#       - "8888:8888"

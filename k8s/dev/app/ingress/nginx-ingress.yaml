@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-dev
+  namespace: app
+
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - 1.dev.hedge-fund.tech
+      secretName: hedge-1-dev-kubernetes-tls
+  rules:
+  - host: 1.dev.hedge-fund.tech
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: "hello-kubernetes-first"
+            
+            port: 
+              number: 80
